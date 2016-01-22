@@ -1,0 +1,34 @@
+Elm.Flashcard = Elm.Flashcard || {};
+Elm.Flashcard.make = function (_elm) {
+   "use strict";
+   _elm.Flashcard = _elm.Flashcard || {};
+   if (_elm.Flashcard.values) return _elm.Flashcard.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var viewFlashcard = function (flashcard) {    return A2($Html.li,_U.list([]),_U.list([$Html.text(flashcard.sideA),$Html.text(flashcard.sideB)]));};
+   var view = function (flashcards) {    return A2($Html.ul,_U.list([]),A2($List.map,viewFlashcard,flashcards.cards));};
+   var flashcardForContent = function (content) {    return {sideA: content.sideA,sideB: content.sideB,correct: true,attempts: 0};};
+   var hiraganaContent = _U.list([{sideA: "あ",sideB: "a"},{sideA: "い",sideB: "i"},{sideA: "う",sideB: "u"},{sideA: "え",sideB: "e"},{sideA: "お",sideB: "o"}]);
+   var initialModel = {cards: A2($List.map,flashcardForContent,hiraganaContent),totalCorrect: 0,totalIncorrect: 0,attempts: 0};
+   var main = A2($Html.div,_U.list([]),_U.list([view(initialModel)]));
+   var Flashcards = F4(function (a,b,c,d) {    return {cards: a,totalCorrect: b,totalIncorrect: c,attempts: d};});
+   var Flashcard = F4(function (a,b,c,d) {    return {sideA: a,sideB: b,correct: c,attempts: d};});
+   var Content = F2(function (a,b) {    return {sideA: a,sideB: b};});
+   return _elm.Flashcard.values = {_op: _op
+                                  ,Content: Content
+                                  ,Flashcard: Flashcard
+                                  ,Flashcards: Flashcards
+                                  ,hiraganaContent: hiraganaContent
+                                  ,flashcardForContent: flashcardForContent
+                                  ,initialModel: initialModel
+                                  ,viewFlashcard: viewFlashcard
+                                  ,view: view
+                                  ,main: main};
+};
